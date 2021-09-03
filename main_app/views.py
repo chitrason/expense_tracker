@@ -33,8 +33,6 @@ class IncomeDelete(DeleteView):
   success_url = '/incomes'
 
 
-
-
 class ExpenseCreate(CreateView):
   model = Expense
   fields = ['title','amount','date','description', 'category']
