@@ -1,0 +1,27 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+
+<h1>create expense boom</h1>
+
+    {% comment %} action="{% url 'add_expense' category.id %}" {% endcomment %}
+  <form 
+    method="post"
+    class="subsection-content"
+  >
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn submit">Add Expense
+    </button>
+  </form>
+
+
+{% endblock %}

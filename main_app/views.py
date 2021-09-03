@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Category, Income, Expense
+from .forms import ExpenseForm
 from django.http import HttpResponse
 
 # Create your views here.
@@ -43,6 +44,15 @@ class ExpenseCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
+
+# def add_expense(request, category_id):
+#   new_expense = None
+#   form = ExpenseForm(request.POST)
+#   if form.is_valid():
+#     new_expense = form.save(commit=False)
+#     new_expense.category_id = category_id
+#     new_expense.save()
+#   return redirect('expenses_index', category_id=category_id)  
 
 def signup(request):
   error_message = ''
