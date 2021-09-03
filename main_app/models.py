@@ -21,10 +21,17 @@ class Income(models.Model):
 
 class Category(models.Model):
   name = models.CharField(max_length=100)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   class Meta:
     verbose_name_plural = 'Categories'
+
+  def __str__(self):
+    return self.name 
+
+  def get_absolute_url(self): #this will link us to the income detail page
+    return reverse('expenses_index')
+
 
 class Expense(models.Model):
   title = models.CharField(max_length=100)
