@@ -23,8 +23,8 @@ link for css file
   <li>Date: {{expense.date}}</li>
   <li>Description: {{expense.description}}</li>
   <li>Category: {{expense.category}}</li>
-  {% comment %} <a href="{% url 'expenses_update' expense.id %}" class="btn danger">Edit</a>
-  <a href="{% url 'expenses_delete' expense.id %}" class="btn danger">Delete</a> {% endcomment %}
+  <a href="{% url 'expenses_update' expense.id %}" class="btn danger">Edit</a>
+  <a href="{% url 'expenses_delete' expense.id %}" class="btn danger">Delete</a> 
 
 </ul>
 {% endfor %}
