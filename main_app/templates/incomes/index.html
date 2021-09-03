@@ -14,6 +14,9 @@ link for css file
   <li>Amount: {{income.amount}}</li>
   <li>Date: {{income.date}}</li>
   <li>Description: {{income.description}}</li>
+  <a href="{% url 'incomes_update' income.id %}" class="btn danger">Edit</a>
+  <a href="{% url 'incomes_delete' income.id %}" class="btn danger">Delete</a>
+
 </ul>
 {% endfor %}
 {% endblock content %}

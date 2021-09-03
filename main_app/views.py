@@ -7,13 +7,14 @@ from django.http import HttpResponse
 def home(request):
   return HttpResponse('home page for expense app')
 
+def expenses_index(request):
+  expenses = Expense.objects.all()
+  return render(request, 'expenses/index.html', { 'expenses': expenses})
+
 def incomes_index(request):
   incomes = Income.objects.all()
   return render(request, 'incomes/index.html', { 'incomes': incomes})
 
-def expenses_index(request):
-  expenses = Expense.objects.all()
-  return render(request, 'expenses/index.html', { 'expenses': expenses})
 
 class IncomeCreate(CreateView):
   model = Income
@@ -22,7 +23,15 @@ class IncomeCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
-      
+
+class IncomeUpdate(UpdateView):
+  model = Income
+  fields = ['source','amount','date','description']
+
+class IncomeDelete(DeleteView):
+  model = Income
+  success_url = '/incomes'
+
 
 
 
