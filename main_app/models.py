@@ -13,6 +13,5 @@ class Income(models.Model):
   def __str__(self):
     return self.source  
 
-#this will take us back to the cat details that we just created
   def get_absolute_url(self):
-    return reverse('incomes_detail', kwargs={'cat_id': self.id})
+    return reverse('incomes_detail', kwargs={'income_id': self.id})

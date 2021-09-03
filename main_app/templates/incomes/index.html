@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+link for css file
+{% endblock head %}
+
+{% block content %}
+<h1>Income Index Page</h1>
+
+{% for income in incomes %}
+Source: {{income.source}}
+Amount: {{income.income}}
+Date: {{income.date}}
+
+{% endfor %}
+{% endblock content %}
