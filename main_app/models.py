@@ -16,11 +16,15 @@ class Income(models.Model):
     return self.source  
 
   def get_absolute_url(self): #this will link us to the income detail page
-    return reverse('incomes_detail', kwargs={'income_id': self.id})
+    return reverse('incomes_index')
+    # return reverse('incomes_detail', kwargs={'income_id': self.id})
 
 class Category(models.Model):
   name = models.CharField(max_length=100)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+  class Meta:
+    verbose_name_plural = 'Categories'
 
 class Expense(models.Model):
   title = models.CharField(max_length=100)

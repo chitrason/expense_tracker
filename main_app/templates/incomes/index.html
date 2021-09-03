@@ -9,10 +9,11 @@ link for css file
 <h1>Income Index Page</h1>
 
 {% for income in incomes %}
-Source: {{income.source}}
-Amount: {{income.amount}}
-Date: {{income.date}}
-Description: {{income.description}}
-
+<ul>
+  <li>Source: {{income.source}}</li>
+  <li>Amount: {{income.amount}}</li>
+  <li>Date: {{income.date}}</li>
+  <li>Description: {{income.description}}</li>
+</ul>
 {% endfor %}
 {% endblock content %}
