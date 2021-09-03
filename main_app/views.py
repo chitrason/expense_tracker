@@ -37,6 +37,7 @@ class IncomeDelete(DeleteView):
   success_url = '/incomes'
 
 
+
 class ExpenseCreate(CreateView):
   model = Expense
   fields = ['title','amount','date','description', 'category']
@@ -44,6 +45,14 @@ class ExpenseCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
+
+class ExpenseUpdate(UpdateView):
+  model = Expense
+  fields = ['title', 'amount', 'date', 'description', 'category']
+
+class ExpenseDelete(DeleteView):
+  model = Expense
+  success_url = '/expenses'
 
 # def add_expense(request, category_id):
 #   new_expense = None
