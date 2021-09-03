@@ -8,11 +8,10 @@ class Income(models.Model):
   source = models.CharField(max_length=100)
   income = models.IntegerField()
   date = models.DateField('date')
-  age = models.IntegerField()
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
-    return self.name  
+    return self.source  
 
 #this will take us back to the cat details that we just created
   def get_absolute_url(self):
