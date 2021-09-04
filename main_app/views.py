@@ -14,19 +14,27 @@ class Home(LoginView):
 
 def incomes_index(request):
   incomes = Income.objects.all()
-  paginator=Paginator(incomes, 2) #split up in pages. 2 per page
+  paginator=Paginator(incomes, 3) #split up in pages. 2 per page
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
-  context = {
+  income_index = {
     'incomes': incomes,
     'page_obj': page_obj
   }
-  return render(request, 'incomes/index.html', context)
+  return render(request, 'incomes/index.html', income_index)
   # return render(request, 'incomes/index.html', { 'incomes': incomes})
 
 def expenses_index(request):
   expenses = Expense.objects.all()
-  return render(request, 'expenses/index.html', { 'expenses': expenses})
+  paginator=Paginator(expenses, 2) #split up in pages. 2 per page
+  page_number=request.GET.get('page')
+  page_obj=Paginator.get_page(paginator, page_number)
+  expense_index = {
+    'expenses': expenses,
+    'page_obj': page_obj
+  }
+  return render(request, 'expenses/index.html', expense_index)
+  # return render(request, 'expenses/index.html', { 'expenses': expenses})
 
 class IncomeCreate(CreateView):
   model = Income
