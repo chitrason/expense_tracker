@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.core.paginator import Paginator
 from .models import Category, Income, Expense
 from .forms import ExpenseForm
 from django.http import HttpResponse
@@ -11,14 +12,21 @@ from django.http import HttpResponse
 class Home(LoginView):
   template_name = 'home.html'
 
+def incomes_index(request):
+  incomes = Income.objects.all()
+  paginator=Paginator(incomes, 2) #split up in pages. 2 per page
+  page_number=request.GET.get('page')
+  page_obj=Paginator.get_page(paginator, page_number)
+  context = {
+    'incomes': incomes,
+    'page_obj': page_obj
+  }
+  return render(request, 'incomes/index.html', context)
+  # return render(request, 'incomes/index.html', { 'incomes': incomes})
+
 def expenses_index(request):
   expenses = Expense.objects.all()
   return render(request, 'expenses/index.html', { 'expenses': expenses})
-
-def incomes_index(request):
-  incomes = Income.objects.all()
-  return render(request, 'incomes/index.html', { 'incomes': incomes})
-
 
 class IncomeCreate(CreateView):
   model = Income
@@ -36,8 +44,6 @@ class IncomeDelete(DeleteView):
   model = Income
   success_url = '/incomes'
 
-
-
 class ExpenseCreate(CreateView):
   model = Expense
   fields = ['title','amount','date','description', 'category']
@@ -45,6 +51,8 @@ class ExpenseCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
+
+
 
 class ExpenseUpdate(UpdateView):
   model = Expense

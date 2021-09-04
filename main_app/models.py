@@ -15,6 +15,9 @@ class Income(models.Model):
   def __str__(self):
     return self.source  
 
+  class Meta: #most recent at the top
+    ordering = ['-date']
+
   def get_absolute_url(self): #this will link us to the income detail page
     return reverse('incomes_index')
     # return reverse('incomes_detail', kwargs={'income_id': self.id})
@@ -39,13 +42,15 @@ class Expense(models.Model):
   amount = models.FloatField()
   date = models.DateField(default=now)
   description = models.CharField(max_length=100)
-  # category = models.CharField(max_length=100)
   user = models.ForeignKey(User, on_delete=models.CASCADE) 
   category = models.ForeignKey(Category, on_delete=models.CASCADE) 
   # change this to category
 
   def __str__(self):
     return self.title 
+
+  class Meta:
+    ordering = ['-date']
 
   def get_absolute_url(self): #this will link us to the income detail page
     return reverse('expenses_index')

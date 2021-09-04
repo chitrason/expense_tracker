@@ -8,7 +8,7 @@ link for css file
 {% block content %}
 <h1>Income Index Page</h1>
 
-{% for income in incomes %}
+{% for income in page_obj %}
 <ul>
   <li>Source: {{income.source}}</li>
   <li>Amount: {{income.amount}}</li>
@@ -19,4 +19,20 @@ link for css file
 
 </ul>
 {% endfor %}
+
+<div>
+  Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+</div>
+
+<ul >
+    {% if page_obj.has_previous %}
+      <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+      <li class="page-item"> <a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+    {% endif %}
+</ul>
 {% endblock content %}
