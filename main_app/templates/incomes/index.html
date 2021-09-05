@@ -27,8 +27,8 @@
       <td class="px-4 py-4">{{income.date}}</td>
       <td class="px-4 py-4">{{income.description}}</td>
       <td class="px-4 py-4">
-        <a href="{% url 'incomes_update' income.id %}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-        <a href="{% url 'incomes_delete' income.id %}" class="text-blue-400 hover:text-blue-600 underline">Delete</a>
+        <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'incomes_update' income.id %}" class="text-blue-400 hover:text-blue-600 ">Edit</a></p>
+        <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'incomes_delete' income.id %}" class="text-blue-400 hover:text-blue-600 ">Delete</a></p>
       </td>
 
     </tr>

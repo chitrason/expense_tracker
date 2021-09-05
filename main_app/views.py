@@ -86,18 +86,13 @@ class ExpenseDelete(DeleteView):
 def signup(request):
   error_message = ''
   if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
     form = UserCreationForm(request.POST)
     if form.is_valid():
-      # This will add the user to the database
       user = form.save()
-      # This is how we log a user in
       login(request, user)
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
@@ -112,7 +107,7 @@ def expense_category_summary(request):
   # todays_date = datetime.date.today()
   # six_months_ago = todays_date-datetime.timedelta(days=30*6)
   # expenses = Expense.objects.all()
-  expenses = Expense.objects.filter(owner=request.user)
+  expenses = Expense.objects.filter(user=request.user)
     # date__gte=six_months_ago, date__lte=todays_date)
   print('expenses', expenses) #these are getting categories
   finalrep = {}

@@ -41,7 +41,7 @@ class Expense(models.Model):
   amount = models.FloatField()
   date = models.DateField(default=now)
   description = models.CharField(max_length=100)
-  owner = models.ForeignKey(User, on_delete=models.CASCADE) 
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   category = models.ForeignKey(Category, on_delete=models.CASCADE) 
   # category = models.CharField(max_length=250) 
   # change this to category

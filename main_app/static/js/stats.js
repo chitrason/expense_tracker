@@ -51,8 +51,8 @@ const getChartData=()=> {
         Object.values(category_data)
       ]
     
-    // renderChart(data, labels)
-    renderChart([], [])
+    renderChart(data, labels)
+    // renderChart([], [])
   })
 }
 
