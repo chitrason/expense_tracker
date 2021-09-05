@@ -27,9 +27,9 @@ link for css file
     <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
       <td class="px-4 py-4">{{expense.title}}</td>
       <td class="px-4 py-4">{{expense.amount}}</td>
-      <td class="px-4 py-4">{{expense.date}}</td>
       <td class="px-4 py-4">{{expense.category}}</td>
       <td class="px-4 py-4">{{expense.description}}</td>
+      <td class="px-4 py-4">{{expense.date}}</td>
       <td class="px-4 py-4">
         <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'expenses_update' expense.id %}" class="text-blue-400 hover:text-blue-600 ">Edit</a></p>
         <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'expenses_delete' expense.id %}" class="text-blue-400 hover:text-blue-600 ">Delete</a> </p>

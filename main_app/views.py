@@ -103,40 +103,69 @@ class CategoryCreate(CreateView):
 
 # 
 
+# def expense_category_summary(request):
+#   # todays_date = datetime.date.today()
+#   # six_months_ago = todays_date-datetime.timedelta(days=30*6)
+#   # expenses = Expense.objects.all()
+#   expenses = Expense.objects.filter(user=request.user)
+#     # date__gte=six_months_ago, date__lte=todays_date)
+#   print('expenses', expenses) #these are getting categories
+#   finalrep = {}
+
+#   def get_category(expense):
+#     return expense.category
+  
+#   # category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
+#   category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
+
+#   print('category_list', category_list)
+
+#   def get_expense_category_amount(category):
+#     amount = 0
+#     filtered_by_category = expenses.filter(category=category)
+  
+#     for item in filtered_by_category:
+#       amount += item.amount
+#     return amount               #getting the total of each category
+
+#   for x in expenses:
+#     for y in category_list:
+#       finalrep[y] = get_expense_category_amount(y)
+#       # print('each category in the category list :', y) 
+
+#   print('finalrep', finalrep)
+#   return JsonResponse('hello', safe=False)
+#   # return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+# def stats_view(request):
+#   return render(request, 'expenses/stats.html')
+
 def expense_category_summary(request):
-  # todays_date = datetime.date.today()
-  # six_months_ago = todays_date-datetime.timedelta(days=30*6)
-  # expenses = Expense.objects.all()
-  expenses = Expense.objects.filter(user=request.user)
-    # date__gte=six_months_ago, date__lte=todays_date)
-  print('expenses', expenses) #these are getting categories
-  finalrep = {}
+    todays_date = datetime.date.today()
+    six_months_ago = todays_date-datetime.timedelta(days=30*6)
+    expenses = Expense.objects.filter(user=request.user,
+    date__gte=six_months_ago, date__lte=todays_date)
+    finalrep = {}
 
-  def get_category(expense):
-    return expense.category
-  
-  category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
+    def get_category(expense):
+        return expense.category
+    category_list = list(set(map(get_category, expenses)))
 
-  print('category_list', category_list)
+    def get_expense_category_amount(category):
+        amount = 0
+        filtered_by_category = expenses.filter(category=category)
 
-  def get_expense_category_amount(category):
-    amount = 0
-    filtered_by_category = expenses.filter(category=category)
-  
-    for item in filtered_by_category:
-      amount += item.amount
-    # print('filtered_by_category the sum of each category', amount) # we get 8 results but the totals are correct
-    return amount               #getting the total of each category
+        for item in filtered_by_category:
+            amount += item.amount
+        return amount
 
-  for x in expenses:
-    for y in category_list:
-      finalrep[y] = get_expense_category_amount(y)
-      # print('each category in the category list :', y) 
+    for x in expenses:
+        for y in category_list:
+            finalrep[y] = get_expense_category_amount(y)
 
-  print('finalrep', finalrep)
-  return JsonResponse('hello', safe=False)
-  # return JsonResponse({'expense_category_data': finalrep}, safe=False)
+    return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
 
 def stats_view(request):
-  return render(request, 'expenses/stats.html')
+    return render(request, 'expenses/stats.html')

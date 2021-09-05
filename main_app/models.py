@@ -30,7 +30,7 @@ class Category(models.Model):
     verbose_name_plural = 'Categories'
 
   def __str__(self):
-    return self.name 
+    return self.name
 
   def get_absolute_url(self): #this will link us to the income detail page
     return reverse('expenses_index')
@@ -42,8 +42,8 @@ class Expense(models.Model):
   date = models.DateField(default=now)
   description = models.CharField(max_length=100)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  category = models.ForeignKey(Category, on_delete=models.CASCADE) 
-  # category = models.CharField(max_length=250) 
+  # category = models.ForeignKey(Category, on_delete=models.CASCADE) 
+  category = models.CharField(max_length=250) 
   # change this to category
 
   def __str__(self):
