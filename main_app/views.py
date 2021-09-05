@@ -16,13 +16,22 @@ class Home(LoginView):
 
 def incomes_index(request):
   incomes = Income.objects.all()
-    
   paginator=Paginator(incomes, 3) #split up in pages. 3 per page
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
+
+  def incomes_total(incomes):
+    amount = 0
+
+    for income in incomes:
+      amount += income.amount
+    print('expense amount', amount)
+    return amount
+
   income_index = {
     'incomes': incomes,
     'page_obj': page_obj,
+    'total': incomes_total(incomes)
   }
   return render(request, 'incomes/index.html', income_index)
 
@@ -31,9 +40,19 @@ def expenses_index(request):
   paginator=Paginator(expenses, 3)
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
+
+  def expenses_total(expenses):
+    amount = 0
+
+    for expense in expenses:
+      amount += expense.amount
+    print('expense amount', amount)
+    return amount
+
   expense_index = {
     'expenses': expenses,
-    'page_obj': page_obj
+    'page_obj': page_obj,
+    'total': expenses_total(expenses)
   }
   return render(request, 'expenses/index.html', expense_index)
 
