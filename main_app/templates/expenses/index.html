@@ -3,11 +3,18 @@
 {% load static %}
 
 {% block head %}
-link for css file
+{% comment %} link for css file {% endcomment %}
 {% endblock head %}
 
 {% block content %}
 <h1>Expense Index</h1>
+
+<div class='px-96 py-4'>
+  <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<script src="{% static 'js/stats.js' %}"></script>
+
 <div class='overflow-x-auto mt-6'>
   <table class="table-auto border-collapse w-full">
     <thead>

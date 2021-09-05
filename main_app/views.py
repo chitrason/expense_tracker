@@ -17,20 +17,18 @@ class Home(LoginView):
 def incomes_index(request):
   incomes = Income.objects.all()
     
-  paginator=Paginator(incomes, 3) #split up in pages. 2 per page
+  paginator=Paginator(incomes, 3) #split up in pages. 3 per page
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
   income_index = {
     'incomes': incomes,
     'page_obj': page_obj,
-    # 'balance': returnSum()
   }
   return render(request, 'incomes/index.html', income_index)
-  # return render(request, 'incomes/index.html', { 'incomes': incomes})
 
 def expenses_index(request):
   expenses = Expense.objects.all()
-  paginator=Paginator(expenses, 2) #split up in pages. 2 per page
+  paginator=Paginator(expenses, 3)
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
   expense_index = {
@@ -38,7 +36,6 @@ def expenses_index(request):
     'page_obj': page_obj
   }
   return render(request, 'expenses/index.html', expense_index)
-  # return render(request, 'expenses/index.html', { 'expenses': expenses})
 
 class IncomeCreate(CreateView):
   model = Income
@@ -65,7 +62,6 @@ class ExpenseCreate(CreateView):
     return super().form_valid(form)
 
 
-
 class ExpenseUpdate(UpdateView):
   model = Expense
   fields = ['title', 'amount', 'date', 'description', 'category']
@@ -74,14 +70,6 @@ class ExpenseDelete(DeleteView):
   model = Expense
   success_url = '/expenses'
 
-# def add_expense(request, category_id):
-#   new_expense = None
-#   form = ExpenseForm(request.POST)
-#   if form.is_valid():
-#     new_expense = form.save(commit=False)
-#     new_expense.category_id = category_id
-#     new_expense.save()
-#   return redirect('expenses_index', category_id=category_id)  
 
 def signup(request):
   error_message = ''
@@ -101,70 +89,28 @@ class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
 
-# 
-
-# def expense_category_summary(request):
-#   # todays_date = datetime.date.today()
-#   # six_months_ago = todays_date-datetime.timedelta(days=30*6)
-#   # expenses = Expense.objects.all()
-#   expenses = Expense.objects.filter(user=request.user)
-#     # date__gte=six_months_ago, date__lte=todays_date)
-#   print('expenses', expenses) #these are getting categories
-#   finalrep = {}
-
-#   def get_category(expense):
-#     return expense.category
-  
-#   # category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
-#   category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
-
-#   print('category_list', category_list)
-
-#   def get_expense_category_amount(category):
-#     amount = 0
-#     filtered_by_category = expenses.filter(category=category)
-  
-#     for item in filtered_by_category:
-#       amount += item.amount
-#     return amount               #getting the total of each category
-
-#   for x in expenses:
-#     for y in category_list:
-#       finalrep[y] = get_expense_category_amount(y)
-#       # print('each category in the category list :', y) 
-
-#   print('finalrep', finalrep)
-#   return JsonResponse('hello', safe=False)
-#   # return JsonResponse({'expense_category_data': finalrep}, safe=False)
-
-
-# def stats_view(request):
-#   return render(request, 'expenses/stats.html')
 
 def expense_category_summary(request):
-    todays_date = datetime.date.today()
-    six_months_ago = todays_date-datetime.timedelta(days=30*6)
-    expenses = Expense.objects.filter(user=request.user,
-    date__gte=six_months_ago, date__lte=todays_date)
-    finalrep = {}
+  expenses = Expense.objects.filter(user=request.user)
+  finalrep = {}
 
-    def get_category(expense):
-        return expense.category
-    category_list = list(set(map(get_category, expenses)))
+  def get_category(expense):
+    return expense.category
+  category_list = list(set(map(get_category, expenses)))
 
-    def get_expense_category_amount(category):
-        amount = 0
-        filtered_by_category = expenses.filter(category=category)
+  def get_expense_category_amount(category):
+    amount = 0
+    filtered_by_category = expenses.filter(category=category)
 
-        for item in filtered_by_category:
-            amount += item.amount
-        return amount
+    for expense in filtered_by_category:
+      amount += expense.amount
+    return amount
 
-    for x in expenses:
-        for y in category_list:
-            finalrep[y] = get_expense_category_amount(y)
+  for x in expenses:
+    for y in category_list:
+      finalrep[y] = get_expense_category_amount(y)
 
-    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+  return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
 
 def stats_view(request):
