@@ -1,10 +1,3 @@
-works
-
-finished my models
-stubbed up some of my views
-created the superuser
-
-will work on my views and ui stuff like forms and so on
 
 {% extends 'base.html' %}
 {% load static %}
@@ -14,34 +7,52 @@ link for css file
 {% endblock head %}
 
 {% block content %}
-<h1>Expense Index Page</h1>
+<h1>Expense Index</h1>
+<div class='overflow-x-auto mt-6'>
+  <table class="table-auto border-collapse w-full">
+    <thead>
+      <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Name</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Amount</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Category</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Description</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Date</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Actions</th>
+      </tr>
+    </thead>
+
+
 
 {% for expense in page_obj %}
-<ul>
-  <li>Title: {{expense.title}}</li>
-  <li>Amount: {{expense.amount}}</li>
-  <li>Date: {{expense.date}}</li>
-  <li>Description: {{expense.description}}</li>
-  <li>Category: {{expense.category}}</li>
-  <a href="{% url 'expenses_update' expense.id %}" class="btn danger">Edit</a>
-  <a href="{% url 'expenses_delete' expense.id %}" class="btn danger">Delete</a> 
+    <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+      <td class="px-4 py-4">{{expense.title}}</td>
+      <td class="px-4 py-4">{{expense.amount}}</td>
+      <td class="px-4 py-4">{{expense.date}}</td>
+      <td class="px-4 py-4">{{expense.category}}</td>
+      <td class="px-4 py-4">{{expense.description}}</td>
+      <td class="px-4 py-4">
+        <a href="{% url 'expenses_update' expense.id %}" class="btn danger">Edit</a>
+        <a href="{% url 'expenses_delete' expense.id %}" class="btn danger">Delete</a> 
+      </td>  
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 
-</ul>
-{% endfor %}
 
-<div>
+<div class="w-full flex justify-center pt-4 items-center">
   Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
 </div>
 
-<ul >
+<div id="pagination" class="w-full flex justify-center pt-1 items-center">
     {% if page_obj.has_previous %}
-      <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
-      <li class="page-item"> <a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      <p {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo;</a></li>
+      <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
     {% endif %}
 
     {% if page_obj.has_next %}
-      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+      <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
     {% endif %}
-</ul>
+</div>
 {% endblock content %}

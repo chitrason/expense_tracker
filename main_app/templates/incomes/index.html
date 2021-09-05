@@ -42,7 +42,7 @@
 
 <div id="pagination" class="w-full flex justify-center pt-1 items-center">
     {% if page_obj.has_previous %}
-      <p {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo;</a></li>
+      <p {% if page_obj.number == 1 %} class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600" {% endif %}><a class="page-link" href="?page=1">&laquo;</a></li>
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
     {% endif %}
 
