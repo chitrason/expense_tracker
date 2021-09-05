@@ -36,14 +36,14 @@ class Category(models.Model):
     return reverse('expenses_index')
 
 
-
 class Expense(models.Model):
   title = models.CharField(max_length=100)
   amount = models.FloatField()
   date = models.DateField(default=now)
   description = models.CharField(max_length=100)
-  user = models.ForeignKey(User, on_delete=models.CASCADE) 
+  owner = models.ForeignKey(User, on_delete=models.CASCADE) 
   category = models.ForeignKey(Category, on_delete=models.CASCADE) 
+  # category = models.CharField(max_length=250) 
   # change this to category
 
   def __str__(self):

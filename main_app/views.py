@@ -5,7 +5,9 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from .models import Category, Income, Expense
-from .forms import ExpenseForm
+import datetime
+# from .forms import ExpenseForm
+from django.http import JsonResponse
 from django.http import HttpResponse
 
 # Create your views here.
@@ -14,12 +16,14 @@ class Home(LoginView):
 
 def incomes_index(request):
   incomes = Income.objects.all()
+    
   paginator=Paginator(incomes, 3) #split up in pages. 2 per page
   page_number=request.GET.get('page')
   page_obj=Paginator.get_page(paginator, page_number)
   income_index = {
     'incomes': incomes,
-    'page_obj': page_obj
+    'page_obj': page_obj,
+    # 'balance': returnSum()
   }
   return render(request, 'incomes/index.html', income_index)
   # return render(request, 'incomes/index.html', { 'incomes': incomes})
@@ -101,3 +105,43 @@ def signup(request):
 class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
+
+# 
+
+def expense_category_summary(request):
+  # todays_date = datetime.date.today()
+  # six_months_ago = todays_date-datetime.timedelta(days=30*6)
+  # expenses = Expense.objects.all()
+  expenses = Expense.objects.filter(owner=request.user)
+    # date__gte=six_months_ago, date__lte=todays_date)
+  print('expenses', expenses) #these are getting categories
+  finalrep = {}
+
+  def get_category(expense):
+    return expense.category
+  
+  category_list = list(set(map(get_category, expenses))) #filters out duplicate categories
+
+  print('category_list', category_list)
+
+  def get_expense_category_amount(category):
+    amount = 0
+    filtered_by_category = expenses.filter(category=category)
+  
+    for item in filtered_by_category:
+      amount += item.amount
+    # print('filtered_by_category the sum of each category', amount) # we get 8 results but the totals are correct
+    return amount               #getting the total of each category
+
+  for x in expenses:
+    for y in category_list:
+      finalrep[y] = get_expense_category_amount(y)
+      # print('each category in the category list :', y) 
+
+  print('finalrep', finalrep)
+  return JsonResponse('hello', safe=False)
+  # return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+def stats_view(request):
+  return render(request, 'expenses/stats.html')

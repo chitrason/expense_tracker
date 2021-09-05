@@ -17,8 +17,15 @@ link for css file
   <a href="{% url 'incomes_update' income.id %}" class="btn danger">Edit</a>
   <a href="{% url 'incomes_delete' income.id %}" class="btn danger">Delete</a>
 
+
 </ul>
 {% endfor %}
+
+{% for amount in incomes %}
+
+
+{% endfor %}
+
 
 <div>
   Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}

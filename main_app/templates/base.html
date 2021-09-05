@@ -11,7 +11,9 @@
     type="image/png"
     href=""
   >
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
   <title>Expense Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   {% block head %}
   {% endblock %}
 </head>
@@ -25,25 +27,28 @@
         >
       </a>
    
-    <nav>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="/incomes">Income</a></li>
-        <li><a href="/expenses">Expenses</a></li>
-        <li><a href="/incomes/create">Create Income</a></li>
-        <li><a href="/expenses/create">Create Expense</a></li>
-        <li><a href="/expenses/createcategory">Create Category for Expense</a></li>
-        <li><a href="{% url 'logout' %}">Log out</a></li>
-        {% else %}
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        <li><a href="{% url 'home' %}">Login</a></li>
-        {% endif %}
-      </ul>
+    <nav class="bg-white shadow dark:bg-gray-800">
+      <div class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
+          
+          {% if user.is_authenticated %}
+          <a href="/incomes" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Income</a>
+          <a href="/expenses" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Expenses</a>
+          <a href="/incomes/create" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Create Income</a>
+          <a href="/expenses/create" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Create Expense</a>
+          <a href="/expenses/createcategory" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Create Category for Expense</a>
+          <a href="{% url 'logout' %}" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Log out</a>
+          {% else %}
+            <a href="{% url 'signup' %}" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Sign Up</a>
+            <a href="{% url 'home' %}"class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Login</a>
+          {% endif %}
+          
+      </div>
     </nav>
   </header>
   <main>
     {% block content %}
     {% endblock %}
   </main>
+
 </body>
 </html>
