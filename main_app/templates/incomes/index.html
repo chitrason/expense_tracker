@@ -7,7 +7,15 @@
 
 {% block content %}
 <h1>Income Index</h1>
-<h2>Total Income: {{total}}</h2>
+<h2>Total income within the last 30 days: {{total}}</h2>
+
+<div class='px-96 py-4'>
+  <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<script src="{% static 'js/income_stats.js' %}"></script>
+
+
 <div class='overflow-x-auto mt-6'>
   <table class="table-auto border-collapse w-full">
     <thead>

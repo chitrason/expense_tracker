@@ -140,6 +140,7 @@ def expense_category_summary(request):
   def get_category(expense):
     return expense.category
   category_list = list(set(map(get_category, expenses)))
+  print(category_list)
 
   def get_expense_category_amount(category):
     amount = 0
@@ -157,4 +158,37 @@ def expense_category_summary(request):
 
 @login_required
 def income_summary(request):
-  pass
+  todays_date = datetime.date.today()
+  thirty_days_ago = todays_date-datetime.timedelta(days=30)
+  incomes = Income.objects.filter(user=request.user,
+  date__gte=thirty_days_ago, date__lte=todays_date)
+  finalrep = {}
+
+  def get_source(income):
+    return income.source
+  source_list = list(set(map(get_source, incomes)))  
+  print(source_list)
+  
+  # def get_amount(income):
+  #   return income.amount
+  # amount_list = list(set(map(get_amount, incomes)))  
+  # print(amount_list)
+
+  # for x in incomes:
+  #   for y in source_list:
+  #     finalrep[y] = get_amount(y)
+  # print(finalrep)
+
+  def get_income_amount(source):
+    amount = 0
+    filtered_by_source = incomes.filter(source=source)
+
+    for item in filtered_by_source:
+      amount += item.amount
+    return amount
+
+  for x in incomes:
+    for y in source_list:
+      finalrep[y] = get_income_amount(y)
+
+  return JsonResponse({'income_data': finalrep}, safe=False)
