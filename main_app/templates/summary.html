@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+incomes:{% for income in incomes %}
+<p>{{income.source}}</p>
+{% endfor %}
+<br>
+expenses:{{expenses}}
+<br>
+total expenses:{{expenses_total}}
+<br>
+total expenses:{{incomes_total}}
+
+
+{% endblock content %}

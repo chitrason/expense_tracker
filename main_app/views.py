@@ -168,16 +168,6 @@ def income_summary(request):
     return income.source
   source_list = list(set(map(get_source, incomes)))  
   print(source_list)
-  
-  # def get_amount(income):
-  #   return income.amount
-  # amount_list = list(set(map(get_amount, incomes)))  
-  # print(amount_list)
-
-  # for x in incomes:
-  #   for y in source_list:
-  #     finalrep[y] = get_amount(y)
-  # print(finalrep)
 
   def get_income_amount(source):
     amount = 0
@@ -192,3 +182,39 @@ def income_summary(request):
       finalrep[y] = get_income_amount(y)
 
   return JsonResponse({'income_data': finalrep}, safe=False)
+
+def income_expense_summary(request):
+  incomes = Income.objects.all()
+  expenses = Expense.objects.all()
+  todays_date = datetime.date.today()
+  thirty_days_ago = todays_date-datetime.timedelta(days=30)
+  incomes_thirty_days_ago = Income.objects.filter(user=request.user,
+    date__gte=thirty_days_ago, date__lte=todays_date)
+  expenses_thirty_days_ago = Expense.objects.filter(user=request.user,
+    date__gte=thirty_days_ago, date__lte=todays_date)
+
+  def incomes_total(incomes):
+    income_total = 0
+
+    for income in incomes_thirty_days_ago:
+      income_total += income.amount
+    print('expense amount', income_total)
+    return income_total
+
+  def expenses_total(expenses):
+    expense_total = 0
+
+    for expense in expenses_thirty_days_ago:
+      expense_total += expense.amount
+    print('expense amount', expense_total)
+    return expense_total
+
+  context = {
+    'incomes': incomes,
+    'expenses': expenses,
+    'expenses_total': expenses_total(expenses_thirty_days_ago),
+    'incomes_total': incomes_total(incomes_thirty_days_ago),
+
+  }
+
+  return render(request, 'summary.html', context)

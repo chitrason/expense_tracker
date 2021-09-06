@@ -15,4 +15,5 @@ urlpatterns = [
   path('accounts/signup/', views.signup, name='signup'),
   path('expense_category_summary/', views.expense_category_summary, name='expense_category_summary'),
   path('income_summary/', views.income_summary, name='income_summary'),
+  path('income_expense_summary/', views.income_expense_summary, name='income_expense_summary'),
 ]
