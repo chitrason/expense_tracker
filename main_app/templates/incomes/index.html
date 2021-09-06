@@ -14,8 +14,8 @@
       <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
         <th class="px-4 py-2 " style="background-color:#f8f8f8">Source</th>
         <th class="px-4 py-2 " style="background-color:#f8f8f8">Amount</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Date</th>
         <th class="px-4 py-2 " style="background-color:#f8f8f8">Description</th>
+        <th class="px-4 py-2 " style="background-color:#f8f8f8">Date</th>
         <th class="px-4 py-2 " style="background-color:#f8f8f8">Actions</th>
       </tr>
     </thead>
@@ -25,8 +25,8 @@
 
       <td class="px-4 py-4">{{income.source}}</td>
       <td class="px-4 py-4">{{income.amount}}</td>
-      <td class="px-4 py-4">{{income.date}}</td>
       <td class="px-4 py-4">{{income.description}}</td>
+      <td class="px-4 py-4">{{income.date}}</td>
       <td class="px-4 py-4">
         <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'incomes_update' income.id %}" class="text-blue-400 hover:text-blue-600 ">Edit</a></p>
         <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'incomes_delete' income.id %}" class="text-blue-400 hover:text-blue-600 ">Delete</a></p>

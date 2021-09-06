@@ -6,19 +6,32 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from .models import Category, Income, Expense
 import datetime
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import ExpenseForm
 from django.http import JsonResponse
 from django.http import HttpResponse
 
 # Create your views here.
+# def home(request):
+#   incomes = Income.objects.all()
+#   expenses = Expense.objects.all()
+#   context = {
+#     'incomes': incomes,
+#     'expenses': expenses
+#   }
+
+#   return render(request, 'home.html', context)
+
 class Home(LoginView):
   template_name = 'home.html'
 
+@login_required
 def incomes_index(request):
-  incomes = Income.objects.all()
-  paginator=Paginator(incomes, 3) #split up in pages. 3 per page
-  page_number=request.GET.get('page')
-  page_obj=Paginator.get_page(paginator, page_number)
+  expenses = Expense.objects.filter(user=request.user)
+  paginator = Paginator(incomes, 3) #split up in pages. 3 per page
+  page_number = request.GET.get('page')
+  page_obj = Paginator.get_page(paginator, page_number)
 
   def incomes_total(incomes):
     amount = 0
@@ -35,11 +48,12 @@ def incomes_index(request):
   }
   return render(request, 'incomes/index.html', income_index)
 
+@login_required
 def expenses_index(request):
-  expenses = Expense.objects.all()
-  paginator=Paginator(expenses, 3)
-  page_number=request.GET.get('page')
-  page_obj=Paginator.get_page(paginator, page_number)
+  expenses = Expense.objects.filter(user=request.user)
+  paginator = Paginator(expenses, 3)
+  page_number = request.GET.get('page')
+  page_obj = Paginator.get_page(paginator, page_number)
 
   def expenses_total(expenses):
     amount = 0
@@ -89,7 +103,6 @@ class ExpenseDelete(DeleteView):
   model = Expense
   success_url = '/expenses'
 
-
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -108,7 +121,7 @@ class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
 
-
+@login_required
 def expense_category_summary(request):
   expenses = Expense.objects.filter(user=request.user)
   finalrep = {}
@@ -131,6 +144,6 @@ def expense_category_summary(request):
 
   return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
-
-def stats_view(request):
-    return render(request, 'expenses/stats.html')
+@login_required
+def income_summary(request):
+  pass
