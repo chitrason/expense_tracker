@@ -7,6 +7,7 @@ urlpatterns = [
   path('expenses/', views.expenses_index, name='expenses_index'),
   path('expenses/createcategory/', views.CategoryCreate.as_view(), name='categories_create'),
   path('expenses/create/', views.ExpenseCreate.as_view(), name='expenses_create'),
+  path('expenses/create1/', views.expense_create1, name='expenses_create1'),
   path('incomes/create/', views.IncomeCreate.as_view(), name='incomes_create'),
   path('incomes/<int:pk>/update', views.IncomeUpdate.as_view(), name='incomes_update'),
   path('incomes/<int:pk>/delete', views.IncomeDelete.as_view(), name='incomes_delete'),

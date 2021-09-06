@@ -8,7 +8,7 @@ from .models import Category, Income, Expense
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from .forms import ExpenseForm
+from .forms import ExpenseForm
 from django.http import JsonResponse
 from django.http import HttpResponse
 
@@ -42,8 +42,9 @@ def incomes_index(request):
 
     for income in incomes_thirty_days_ago:
       amount += income.amount
-    print('expense amount', amount)
-    return amount
+      format_float = "{:.2f}".format(amount)
+    print('expense amount', format_float)
+    return format_float
 
   income_index = {
     'incomes': incomes,
@@ -68,8 +69,10 @@ def expenses_index(request):
 
     for expense in expenses_thirty_days_ago:
       amount += expense.amount
-    print('expense amount', amount)
-    return amount
+      format_float = "{:.2f}".format(amount)
+    print('expense amount', format_float)
+
+    return format_float
 
   expense_index = {
     'expenses': expenses,
@@ -103,6 +106,15 @@ class ExpenseCreate(CreateView):
     return super().form_valid(form)
 
 
+def expense_create1(request):
+  categories = Category.objects.all()
+  expense_form = ExpenseForm(request.POST)
+  context = { 'categories': categories, 'expense_form': expense_form }
+  return render(request, 'expense_form1.html', context)
+
+
+
+
 class ExpenseUpdate(UpdateView):
   model = Expense
   fields = ['title', 'amount', 'date', 'description', 'category']
@@ -129,6 +141,7 @@ class CategoryCreate(CreateView):
   model = Category
   fields = ['name']
 
+
 @login_required
 def expense_category_summary(request):
   todays_date = datetime.date.today()
@@ -148,13 +161,16 @@ def expense_category_summary(request):
 
     for expense in filtered_by_category:
       amount += expense.amount
-    return amount
+      format_float = "{:.2f}".format(amount)
+    return format_float
 
   for x in expenses:
     for y in category_list:
       finalrep[y] = get_expense_category_amount(y)
 
   return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
 
 @login_required
 def income_summary(request):
@@ -175,7 +191,8 @@ def income_summary(request):
 
     for item in filtered_by_source:
       amount += item.amount
-    return amount
+      format_float = "{:.2f}".format(amount)
+    return format_float
 
   for x in incomes:
     for y in source_list:
@@ -198,7 +215,6 @@ def income_expense_summary(request):
 
     for income in incomes_thirty_days_ago:
       income_total += income.amount
-    print('expense amount', income_total)
     return income_total
 
   def expenses_total(expenses):
@@ -206,19 +222,19 @@ def income_expense_summary(request):
 
     for expense in expenses_thirty_days_ago:
       expense_total += expense.amount
-    print('expense amount', expense_total)
     return expense_total
 
   def net_worth(income_total, expense_total):
     net = income_total - expense_total
+    # format_float = "{:.2f}".format(net)
     return net  
 
   context = {
     'incomes': incomes,
     'expenses': expenses,
-    'expenses_total': expenses_total(expenses_thirty_days_ago),
-    'incomes_total': incomes_total(incomes_thirty_days_ago),
-    'net_worth': net_worth(incomes_total(incomes_thirty_days_ago), expenses_total(expenses_thirty_days_ago))
+    'expenses_total': "{:.2f}".format(expenses_total(expenses_thirty_days_ago)),
+    'incomes_total': "{:.2f}".format(incomes_total(incomes_thirty_days_ago)),
+    'net_worth': "{:.2f}".format(net_worth(incomes_total(incomes_thirty_days_ago), expenses_total(expenses_thirty_days_ago)))
 
   }
 

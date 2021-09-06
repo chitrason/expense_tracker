@@ -1,0 +1,70 @@
+expense form 1
+expenses_create1
+
+{% extends 'base.html' %} 
+
+{% block content %}
+
+
+  <div class="card">
+    <div class="card-body">
+      <form action="{% url 'expenses_create1' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="">Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="title"
+            value="{{values.title}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Amount</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="amount"
+            value="{{values.amount}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Description</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="description"
+            value="{{values.description}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Category</label>
+          <select class="form-control" name="category">
+            {% for category in categories%}
+            <option name="category" value="{{category.name}}"
+              >{{category.name}}</option
+            >
+
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">Date of Expense</label>
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            name="expense_date"
+          />
+        </div>
+
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary btn-primary-sm"
+        />
+      </form>
+    </div>
+  </div>
+
+
+{% endblock %}
