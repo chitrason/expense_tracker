@@ -209,11 +209,16 @@ def income_expense_summary(request):
     print('expense amount', expense_total)
     return expense_total
 
+  def net_worth(income_total, expense_total):
+    net = income_total - expense_total
+    return net  
+
   context = {
     'incomes': incomes,
     'expenses': expenses,
     'expenses_total': expenses_total(expenses_thirty_days_ago),
     'incomes_total': incomes_total(incomes_thirty_days_ago),
+    'net_worth': net_worth(incomes_total(incomes_thirty_days_ago), expenses_total(expenses_thirty_days_ago))
 
   }
 

@@ -47,9 +47,10 @@ incomes:{% for income in incomes %}
 <br>
 expenses:{{expenses}}
 <br>
-total expenses:{{expenses_total}}
+total expenses:{{ expenses_total }}
 <br>
-total expenses:{{incomes_total}}
-
+total expenses:{{ incomes_total }}
+<br>
+Summary for the past 30 days: {{ net_worth }}
 
 {% endblock content %}
