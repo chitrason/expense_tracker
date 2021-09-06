@@ -28,7 +28,11 @@ class Home(LoginView):
 
 @login_required
 def incomes_index(request):
-  expenses = Expense.objects.filter(user=request.user)
+  todays_date = datetime.date.today()
+  thirty_days_ago = todays_date-datetime.timedelta(days=30)
+  incomes_thirty_days_ago = Income.objects.filter(user=request.user,
+    date__gte=thirty_days_ago, date__lte=todays_date)
+  incomes = Income.objects.filter(user=request.user)
   paginator = Paginator(incomes, 3) #split up in pages. 3 per page
   page_number = request.GET.get('page')
   page_obj = Paginator.get_page(paginator, page_number)
@@ -36,7 +40,7 @@ def incomes_index(request):
   def incomes_total(incomes):
     amount = 0
 
-    for income in incomes:
+    for income in incomes_thirty_days_ago:
       amount += income.amount
     print('expense amount', amount)
     return amount
@@ -50,6 +54,10 @@ def incomes_index(request):
 
 @login_required
 def expenses_index(request):
+  todays_date = datetime.date.today()
+  thirty_days_ago = todays_date-datetime.timedelta(days=30)
+  expenses_thirty_days_ago = Expense.objects.filter(user=request.user,
+    date__gte=thirty_days_ago, date__lte=todays_date)
   expenses = Expense.objects.filter(user=request.user)
   paginator = Paginator(expenses, 3)
   page_number = request.GET.get('page')
@@ -58,7 +66,7 @@ def expenses_index(request):
   def expenses_total(expenses):
     amount = 0
 
-    for expense in expenses:
+    for expense in expenses_thirty_days_ago:
       amount += expense.amount
     print('expense amount', amount)
     return amount
@@ -123,7 +131,10 @@ class CategoryCreate(CreateView):
 
 @login_required
 def expense_category_summary(request):
-  expenses = Expense.objects.filter(user=request.user)
+  todays_date = datetime.date.today()
+  thirty_days_ago = todays_date-datetime.timedelta(days=30)
+  expenses = Expense.objects.filter(user=request.user,
+  date__gte=thirty_days_ago, date__lte=todays_date)
   finalrep = {}
 
   def get_category(expense):
