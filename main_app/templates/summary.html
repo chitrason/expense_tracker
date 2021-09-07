@@ -2,25 +2,16 @@
 {% load static %}
 
 {% block head %}
-<link 
-  rel="stylesheet" 
-  type="text/css" 
-  href="{% static 'css/summary.css' %}"
-/>
+
 {% endblock head %}
 
 {% block content %}
 
 
-
-
-
-
 <!-- component -->
 
             <main class="">
-                <div class="grid mb-4 pb-10 px-8 mx-4 rounded-3xl bg-gray-100 border-4 border-green-400">
-
+                <div class="grid mb-4 pb-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
                     <div class="grid grid-cols-12 gap-6">
                         <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
                             <div class="col-span-12 mt-8">
@@ -29,7 +20,7 @@
                                 </div>
                                 <div class="grid grid-cols-12 gap-6 mt-5">
                                     <a class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
-                                        href="#">
+                                        href="/incomes">
                                         <div class="p-5">
                                             <div class="flex justify-between">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-400"
@@ -53,7 +44,7 @@
                                         </div>
                                     </a>
                                     <a class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
-                                        href="#">
+                                        href="/expenses">
                                         <div class="p-5">
                                             <div class="flex justify-between">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-yellow-400"
@@ -138,6 +129,10 @@
 
                                 </div>
                             </div>
+
+
+
+
                             <div class="col-span-12 mt-5">
                                 <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
                                     <div class="bg-white p-4 shadow-lg rounded-lg">
@@ -180,7 +175,7 @@
                                                                 <tbody class="bg-white divide-y divide-gray-200">
                                                                     <tr>
                                                                         <td
-                                                                            class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+                                                                            class="px-6 py-4 text-lg text-black whitespace-no-wrap leading-5">
                                                                             <p>Apple MacBook Pro 13</p>
                                                                             <p class="text-xs text-gray-400">PC & Laptop
                                                                             </p>

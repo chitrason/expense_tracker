@@ -7,6 +7,7 @@
 {% endblock head %}
 
 {% block content %}
+<div class="grid mb-4 pb-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
 <h1>Expense Index</h1>
 <h2>Total expenses within the last 30 days: {{total}}</h2>
 
@@ -16,37 +17,125 @@
 
 <script src="{% static 'js/expense_stats.js' %}"></script>
 
-<div class='overflow-x-auto mt-6'>
-  <table class="table-auto border-collapse w-full">
-    <thead>
-      <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Name</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Amount</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Category</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Description</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Date</th>
-        <th class="px-4 py-2 " style="background-color:#f8f8f8">Actions</th>
-      </tr>
-    </thead>
+
+  <div class="col-span-12 mt-5">
+      <div class="grid shadow-xl gap-2 grid-cols-1 lg:grid-cols-1">
+          <div class="bg-white p-4 shadow-lg rounded-lg">
+              <div class="mt-4">
+                  <div class="flex flex-col">
+                      <div class="-my-2 overflow-x-auto">
+                          <div class="py-2 align-middle inline-block min-w-full">
+                              <div
+                                  class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
+                                  <table class="min-w-full divide-y divide-gray-200">
+                                      <thead>
+                                          <tr>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">NAME</span>
+                                                  </div>
+                                              </th>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">Amount</span>
+                                                  </div>
+                                              </th>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">Category</span>
+                                                  </div>
+                                              </th>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">Description</span>
+                                                  </div>
+                                              </th>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">Date</span>
+                                                  </div>
+                                              </th>
+                                              <th
+                                                  class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                  <div class="flex cursor-pointer">
+                                                      <span class="mr-2">ACTION</span>
+                                                  </div>
+                                              </th>
+                                          </tr>
+                                      </thead>
 
 
-
-{% for expense in page_obj %}
-    <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
-      <td class="px-4 py-4">{{expense.title}}</td>
-      <td class="px-4 py-4">{{expense.amount}}</td>
-      <td class="px-4 py-4">{{expense.category}}</td>
-      <td class="px-4 py-4">{{expense.description}}</td>
-      <td class="px-4 py-4">{{expense.date}}</td>
-      <td class="px-4 py-4">
-        <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'expenses_update' expense.id %}" class="text-blue-400 hover:text-blue-600 ">Edit</a></p>
-        <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"><a href="{% url 'expenses_delete' expense.id %}" class="text-blue-400 hover:text-blue-600 ">Delete</a> </p>
-      </td>  
-    </tr>
-    {% endfor %}
-  </table>
-</div>
-
+                                      <tbody class="bg-white divide-y divide-gray-200">
+                                      {% for expense in page_obj %}
+                                          <tr>
+                                              <td
+                                                  class="px-6 py-4 text-black whitespace-no-wrap leading-5">
+                                                  <p>{{expense.title}}</p>
+                                              </td>
+                                              <td
+                                                  class="px-6 py-4 text-black whitespace-no-wrap leading-5">
+                                                  <p>{{expense.amount}}</p>
+                                              </td>
+                                              <td
+                                                  class="px-6 py-4 text-black whitespace-no-wrap leading-5">
+                                                  <p>{{expense.category}}</p>
+                                              </td>
+                                              <td
+                                                  class="px-6 py-4 whitespace-no-wrap leading-5">
+                                                  <p>{{expense.description}}</p>
+                                              </td>
+                                              <td
+                                                  class="px-6 py-4 whitespace-no-wrap leading-5">
+                                                  <p>{{expense.date}}</p>
+                                                  </div>
+                                              </td>
+                                              <td
+                                                  class="px-6 py-4 whitespace-no-wrap leading-5">
+                                                  <div class="flex space-x-4">
+                                                      <a href="{% url 'expenses_update' expense.id %}" class="text-blue-500 hover:text-blue-600">
+                                                      <svg xmlns="http://www.w3.org/2000/svg"
+                                                          class="w-5 h-5 mr-1"
+                                                          fill="none" viewBox="0 0 24 24"
+                                                          stroke="currentColor">
+                                                          <path stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              stroke-width="2"
+                                                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                      </svg>
+                                                      <p>Edit</p>
+                                                      </a>
+                                                      <a href="{% url 'expenses_delete' expense.id %}" class="text-red-500 hover:text-red-600">
+                                                      <svg xmlns="http://www.w3.org/2000/svg"
+                                                          class="w-5 h-5 mr-1 ml-3"
+                                                          fill="none" viewBox="0 0 24 24"
+                                                          stroke="currentColor">
+                                                          <path stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              stroke-width="2"
+                                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                      </svg>
+                                                      <p>Delete</p>
+                                                      </a>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
 
 <div class="w-full flex justify-center pt-4 items-center">
   Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
@@ -62,5 +151,6 @@
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
     {% endif %}
+</div>
 </div>
 {% endblock content %}
