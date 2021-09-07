@@ -12,16 +12,6 @@ from .forms import ExpenseForm
 from django.http import JsonResponse
 from django.http import HttpResponse
 
-# Create your views here.
-# def home(request):
-#   incomes = Income.objects.all()
-#   expenses = Expense.objects.all()
-#   context = {
-#     'incomes': incomes,
-#     'expenses': expenses
-#   }
-
-#   return render(request, 'home.html', context)
 
 class Home(LoginView):
   template_name = 'home.html'
@@ -106,15 +96,6 @@ class ExpenseCreate(CreateView):
     return super().form_valid(form)
 
 
-def expense_create1(request):
-  categories = Category.objects.all()
-  expense_form = ExpenseForm(request.POST)
-  context = { 'categories': categories, 'expense_form': expense_form }
-  return render(request, 'expense_form1.html', context)
-
-
-
-
 class ExpenseUpdate(UpdateView):
   model = Expense
   fields = ['title', 'amount', 'date', 'description', 'category']
@@ -170,8 +151,6 @@ def expense_category_summary(request):
 
   return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
-
-
 @login_required
 def income_summary(request):
   todays_date = datetime.date.today()
@@ -226,7 +205,6 @@ def income_expense_summary(request):
 
   def net_worth(income_total, expense_total):
     net = income_total - expense_total
-    # format_float = "{:.2f}".format(net)
     return net  
 
   context = {
@@ -234,8 +212,15 @@ def income_expense_summary(request):
     'expenses': expenses,
     'expenses_total': "{:.2f}".format(expenses_total(expenses_thirty_days_ago)),
     'incomes_total': "{:.2f}".format(incomes_total(incomes_thirty_days_ago)),
-    'net_worth': "{:.2f}".format(net_worth(incomes_total(incomes_thirty_days_ago), expenses_total(expenses_thirty_days_ago)))
-
+    'net_worth': "{:.2f}".format(net_worth(incomes_total(incomes_thirty_days_ago), expenses_total(expenses_thirty_days_ago))),
+    'percent_savings': "{:.2f}".format((100*(incomes_total(incomes_thirty_days_ago) - expenses_total(expenses_thirty_days_ago)))/(incomes_total(incomes_thirty_days_ago)))
   }
 
   return render(request, 'summary.html', context)
+
+
+# def expense_create1(request):
+#   categories = Category.objects.all()
+#   expense_form = ExpenseForm(request.POST)
+#   context = { 'categories': categories, 'expense_form': expense_form }
+#   return render(request, 'expense_form1.html', context)
