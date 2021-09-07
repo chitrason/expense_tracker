@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="grid mb-4 pb-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
-<h1 class='text-3xl font-bold'>Income</h1>
+<h1 class='text-3xl font-bold mt-8'>Income</h1>
 
 <div class="p-5">
   <div class="flex justify-between">
@@ -52,7 +52,7 @@
     </thead>
 
   {% for income in page_obj %}
-    <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+    <tr class="hover:bg-gray-200 border-b border-gray-200 py-10">
 
       <td class="px-4 py-4">{{income.source}}</td>
       <td class="px-4 py-4">{{income.amount}}</td>
