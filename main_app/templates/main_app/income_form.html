@@ -11,23 +11,27 @@
 >
 </script>
 <script defer src="{% static 'js/income_form.js' %}"></script>
-{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
 {% endblock %}
 
 {% block content %}
+<div class='page-header text-xl text-gray-100'>
+  <h1>Add an Income</h1>
+</div>
 
-<h1>Add an Income</h1>
-<div class="min-h-screen bg-gray-100 flex items-center">
-  <div class="container mx-auto max-w-md shadow-md hover:shadow-lg transition duration-300">
-    <div class="py-12 p-10 bg-indigo-50 rounded-xl">
-      <form action="" method="post">
+
+      
+    <div class="grid mb-4 py-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
+  
+      <form method="post" class="form-container">
 
             {% csrf_token %}
-
-          {{ form.as_p }}
+          <table>
+            {{ form.as_table }}
+          </table>  
         <button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Income</button>
       </form>
     </div>
-  </div>
-</div>
+    
+
 {% endblock %}

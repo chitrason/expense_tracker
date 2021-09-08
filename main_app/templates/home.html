@@ -2,27 +2,25 @@
 {% load static %}
 
 {% block head %}
-{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
 {% endblock %}
 
 {% block content %}
-
-
-
-{% if user.is_authenticated %}
-home page. this is where we can conditionally render once the user is logged in
-
-{% else %}
-  <section>
-    <form action="{% url 'home' %}" method="post" class="login">
+<div class='page-header text-xl text-gray-100'>
       <h1>Login</h1>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="hidden" name="next" value="{{ next }}">
-      <button type="submit" class="btn submit">Login</button>
-    </form>
-  </section>
+</div>
 
-{% endif %}
+  <div class="grid mb-4 py-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
+
+    <form action="{% url 'home' %}" method="post" class="form-container">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Login</button>
+    </form>
+  </div>
+
 
 {% endblock content %}
