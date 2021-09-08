@@ -10,9 +10,12 @@
 
   <h1 class='text-3xl font-bold mt-8'>Income</h1>
   
+ 
 {% comment %} <div class="flex justify-center py-10 p-14 transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">  {% endcomment %}
+{% comment %} {% if incomes %} {% endcomment %}
+{% comment %} {% if user.incomes %} {% endcomment %}
 
-  <div class="grid gap-2 grid-cols-2 -mb-5 mx-auto">
+  <div class="grid gap-2 grid-cols-2 -mb-5 mx-auto bg-white rounded-xl pt-6 pr-6 pl-6">
     <div>
         <svg xmlns="http://www.w3.org/2000/svg" class="ml-5 h-9 w-9 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -24,7 +27,6 @@
     </div>
     <img class="h-48 w-full object-cover md:w-48 -mt-6" src="../../static/images/money-stack.gif" alt="trash">
   </div>
-  
 {% comment %} </div>  {% endcomment %}
   
 
@@ -103,6 +105,13 @@
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
     {% endif %}
+
+{% comment %} {% else %}
+    <a href="/incomes/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Income</button></a>
+    <a href="/expenses/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-red-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Expense</button></a>
+
+
+{% endif %} {% endcomment %}
 </div>
 </div>
 {% endblock content %}

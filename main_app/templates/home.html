@@ -3,11 +3,17 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
 {% endblock %}
 
 {% block content %}
+
+<main class="">
+
+
+{% if not user.is_authenticated %}
 <div class='page-header text-xl text-gray-100'>
-      <h1>Login</h1>
+  <h1>Hello, please log in</h1>
 </div>
 
   <div class="grid mb-4 py-10 mt-4 px-8 mx-8 rounded-3xl bg-gray-100 border-4 border-green-400">
@@ -21,6 +27,27 @@
       <button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Login</button>
     </form>
   </div>
+{% else %}
+
+<div class="grid mb-4 py-10 mt-4 px-8 mx-8 rounded-3xl bg-white border-4 border-green-400">
+
+<section class="logo-container">
+  <div class="cat-container">
+  </div>
+  <img 
+    src="{% static 'images/money.gif' %}" 
+    alt="Piggy bank"
+  />
+</section>
+
+<div class='page-header text-xl text-black'>
+  <h1 class="">Hello, {{ user.username }}</h1>
+</div>
+  <a href="/incomes/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Income</button></a>
+  <a href="/expenses/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-red-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Expense</button></a>
+
+</div>
+{% endif %}
 
 
 {% endblock content %}

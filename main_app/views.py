@@ -18,11 +18,14 @@ class Home(LoginView):
 
 @login_required
 def incomes_index(request):
+  incomes = Income.objects.filter(user=request.user)
+  if len(incomes) == 0:
+    return redirect('incomes_create')
+
   todays_date = datetime.date.today()
   thirty_days_ago = todays_date-datetime.timedelta(days=30)
   incomes_thirty_days_ago = Income.objects.filter(user=request.user,
     date__gte=thirty_days_ago, date__lte=todays_date)
-  incomes = Income.objects.filter(user=request.user)
   paginator = Paginator(incomes, 3) #split up in pages. 3 per page
   page_number = request.GET.get('page')
   page_obj = Paginator.get_page(paginator, page_number)
@@ -45,11 +48,14 @@ def incomes_index(request):
 
 @login_required
 def expenses_index(request):
+  expenses = Expense.objects.filter(user=request.user)
+  if len(expenses) == 0:
+    return redirect('expenses_create')
+
   todays_date = datetime.date.today()
   thirty_days_ago = todays_date-datetime.timedelta(days=30)
   expenses_thirty_days_ago = Expense.objects.filter(user=request.user,
     date__gte=thirty_days_ago, date__lte=todays_date)
-  expenses = Expense.objects.filter(user=request.user)
   paginator = Paginator(expenses, 3)
   page_number = request.GET.get('page')
   page_obj = Paginator.get_page(paginator, page_number)
@@ -180,8 +186,11 @@ def income_summary(request):
   return JsonResponse({'income_data': finalrep}, safe=False)
 
 def income_expense_summary(request):
-  incomes = Income.objects.all()
-  expenses = Expense.objects.all()
+  incomes = Income.objects.filter(user=request.user)
+  expenses = Expense.objects.filter(user=request.user)
+  if len(incomes) == 0 and len(expenses) == 0:
+    return redirect('incomes_create')
+  
   todays_date = datetime.date.today()
   thirty_days_ago = todays_date-datetime.timedelta(days=30)
   incomes_thirty_days_ago = Income.objects.filter(user=request.user,
@@ -218,9 +227,3 @@ def income_expense_summary(request):
 
   return render(request, 'summary.html', context)
 
-
-# def expense_create1(request):
-#   categories = Category.objects.all()
-#   expense_form = ExpenseForm(request.POST)
-#   context = { 'categories': categories, 'expense_form': expense_form }
-#   return render(request, 'expense_form1.html', context)

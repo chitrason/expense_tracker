@@ -6,15 +6,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    rel="shortcut icon"
-    type="image/png"
-    href=""
-  >
+  
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     
-    {% comment %} <link rel="icon" type="image/png" href="../main_app/static/images/money-box.png"> {% endcomment %}
+   <link rel="icon" type="image/png" href="{% static 'images/money-box.png' %}">
     <title>Expense Tracker</title>
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>  
@@ -38,17 +34,19 @@
                 class="mx-1.5 mr-4 outine"
               >
             </a>
-            <a href="/incomes" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Income</a>
-            <a href="/expenses" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Expenses</a>
+
+                <a href="/incomes" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Income</a>
+                <a href="/expenses" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Expenses</a>
+            
             <a href="/incomes/create" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Create Income</a>
             <a href="/expenses/create" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Create Expense</a>
             <a href="{% url 'logout' %}" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Log out</a>
           {% else %}
-             <img 
-              src="https://img.icons8.com/wired/64/000000/money-box.png" 
-              alt="The Expense Tracker Logo"
-              class="mx-1.5 sm:mx-12"
-            >
+              <img 
+                src="https://img.icons8.com/clouds/100/000000/money-box.png"
+                alt="The Expense Tracker Logo"
+                class="mx-1.5 mr-4 outine"
+              >
             <a href="{% url 'signup' %}" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Sign Up</a>
             <a href="{% url 'home' %}"class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Login</a>
           {% endif %}
