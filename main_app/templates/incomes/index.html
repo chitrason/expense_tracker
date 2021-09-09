@@ -10,10 +10,6 @@
 
   <h1 class='text-3xl font-bold mt-8'>Income</h1>
   
- 
-{% comment %} <div class="flex justify-center py-10 p-14 transform hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">  {% endcomment %}
-{% comment %} {% if incomes %} {% endcomment %}
-{% comment %} {% if user.incomes %} {% endcomment %}
 
   <div class="grid gap-2 grid-cols-2 -mb-5 mx-auto bg-white rounded-xl pt-6 pr-6 pl-6">
     <div>
@@ -27,7 +23,6 @@
     </div>
     <img class="h-48 w-full object-cover md:w-48 -mt-6" src="../../static/images/money-stack.gif" alt="trash">
   </div>
-{% comment %} </div>  {% endcomment %}
   
 
 <div class="grid gap-2 grid-cols-1 py-4 md:px-20 lg:grid-cols-1 lg:px-64 xl:px-96">
@@ -106,12 +101,6 @@
       <p class="leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
     {% endif %}
 
-{% comment %} {% else %}
-    <a href="/incomes/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Income</button></a>
-    <a href="/expenses/create"><button type="submit" class="w-full mt-6 text-indigo-50 font-bold bg-red-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Create Expense</button></a>
-
-
-{% endif %} {% endcomment %}
 </div>
 </div>
 {% endblock content %}

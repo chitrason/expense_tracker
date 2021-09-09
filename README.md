@@ -2,7 +2,7 @@
  
 
 ## Description 
-This app allows you to track you incomes and expenses
+In this day and age, people tend to throw away receipts or even declining them when offered which drives one to easily lose track of our expenses. What most people dont realize is that income can also be overlooked. This app allows you to track your incomes and expenses through a CRUD operated app. The user is able to keep track of their finances by creating, editing and deleting their transactions. The user is also able to visualize their income versus expense stats within the last 30 days through a calculated net worth number and savings percentage.
 
 
 ## Getting Started
@@ -29,5 +29,9 @@ This app allows you to track you incomes and expenses
 </ul>
 
 ## Next Steps
-
-
+<ul>
+  <li>Make budget section- so the user can allocate income to specific categories of expenses</li>
+  <li>Develop a debt section- so the user can keep track of bigger purchases or amount owed on a loan </li>
+  <li>Make the app 100% mobile-friendly</li>
+  <li>Create a portfolio section- so the user can keep track of their investments</li>
+</ul>
