@@ -6,11 +6,14 @@ In this day and age, people tend to throw away receipts or even declining them w
 
 
 ## Getting Started
+- [Expense-Tracker](https://sei-expense-tracker.herokuapp.com/)
 - [Trello board](https://trello.com/b/3qVsQyqi/expense-tracker)
 - [ERD](https://whimsical.com/expense-tracker-unit-4-project-98hUWtQJvVJa7WvaakfwYP)
 - [Wireframes](https://whimsical.com/expense-tracker-wireframe-H5w2cJakXU1z6kADZdZuDQ)
 
 ## Screenshot(s)
+<img src='./main_app/static/images/wireframes.png' width=500px/>
+<img src='./main_app/static/images/ERD.png' width=500px/>
 <img src='./main_app/static/images/expense-tracker1.png' width=500px/>
 <img src='./main_app/static/images/expense-tracker2.png' width=500px/>
 <img src='./main_app/static/images/expense-tracker3.png' width=500px/>
